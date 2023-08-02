@@ -3,7 +3,7 @@ import { Categories } from '../Categories';
 import { Header } from '../Header';
 import { Sort } from '../Sort';
 import { PizzaBlock } from '../PizzaBlock';
-
+import pizzas from '../../pizza.json';
 function App() {
   return (
     <div className='wrapper'>
@@ -16,12 +16,9 @@ function App() {
           </div>
           <h2 className='content__title'>Все пиццы</h2>
           <div className='content__items'>
-            <PizzaBlock />
-            <PizzaBlock />
-            <PizzaBlock />
-            <PizzaBlock />
-            <PizzaBlock />
-            <PizzaBlock />
+            {pizzas.map((pizza) => (
+              <PizzaBlock key={pizza.id} {...pizza} />
+            ))}
           </div>
         </div>
       </div>
