@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { Pizza } from '../../const/interfaces.ts';
 
-export const PizzaBlock = ({ title, imageUrl, types, sizes, price }) => {
+export const PizzaBlock = ({ title, imageUrl, types, sizes, price }: Pizza) => {
   const typesName = ['тонкое', 'традиционное'];
   const [pizzaCount, setPizzaCount] = useState(0);
   const [activeSize, setActiveSize] = useState(sizes[0]);
