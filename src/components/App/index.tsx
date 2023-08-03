@@ -3,8 +3,15 @@ import { Categories } from '../Categories';
 import { Header } from '../Header';
 import { Sort } from '../Sort';
 import { PizzaBlock } from '../PizzaBlock';
-import pizzas from '../../pizza.json';
+import { useEffect, useState } from 'react';
+import { pizzaService } from '../../service/pizzaService.ts';
+
 function App() {
+  const [pizzas, setPizzas] = useState([]);
+  const { getPizzas } = pizzaService();
+  useEffect(() => {
+    getPizzas().then((res) => setPizzas(res));
+  }, []);
   return (
     <div className='wrapper'>
       <Header />
