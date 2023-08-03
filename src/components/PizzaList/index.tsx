@@ -2,6 +2,7 @@ import { PizzaBlock } from '../PizzaBlock';
 import { Skeleton } from '../Skeleton';
 import { useEffect, useState } from 'react';
 import { pizzaService } from '../../service/pizzaService.ts';
+import { Pizza } from '../../const/interfaces.ts';
 
 export const PizzaList = () => {
   const [pizzas, setPizzas] = useState([]);
@@ -18,9 +19,10 @@ export const PizzaList = () => {
       <h2 className='content__title'>Все пиццы</h2>
       <div className='content__items'>
         {isLoading
-          ? pizzas.map((pizza) => <PizzaBlock key={pizza.id} {...pizza} />)
+          ? pizzas.map((pizza: Pizza) => (
+              <PizzaBlock key={pizza.id} {...pizza} />
+            ))
           : [...new Array(6)].map((_, index) => <Skeleton key={index} />)}
-        <Skeleton />
       </div>
     </>
   );

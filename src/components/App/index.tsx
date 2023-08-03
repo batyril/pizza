@@ -1,21 +1,21 @@
 import '../../scss/app.scss';
-import { Categories } from '../Categories';
 import { Header } from '../Header';
-import { Sort } from '../Sort';
-import { PizzaList } from '../PizzaList';
+import { Home } from '../../pages/Home';
+import { Error } from '../../pages/Error';
+import { Route, Routes } from 'react-router-dom';
+import Cart from '../../pages/Cart';
+import { Paths } from '../../const/paths.ts';
 
 function App() {
   return (
     <div className='wrapper'>
       <Header />
       <div className='content'>
-        <div className='container'>
-          <div className='content__top'>
-            <Categories />
-            <Sort />
-          </div>
-          <PizzaList />
-        </div>
+        <Routes>
+          <Route path={Paths.HOME} element={<Home />}></Route>
+          <Route path={Paths.CART} element={<Cart />}></Route>
+          <Route path={Paths.ERROR} element={<Error />}></Route>
+        </Routes>
       </div>
     </div>
   );
