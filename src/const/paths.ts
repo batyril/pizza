@@ -1,4 +1,4 @@
-export enum Paths {
+export enum PATHS {
   CART = '/cart',
   ERROR = '*',
   HOME = '/',

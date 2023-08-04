@@ -4,7 +4,7 @@ import { Home } from '../../pages/Home';
 import { Error } from '../../pages/Error';
 import { Route, Routes } from 'react-router-dom';
 import Cart from '../../pages/Cart';
-import { Paths } from '../../const/paths.ts';
+import { PATHS } from '../../const/paths.ts';
 
 function App() {
   return (
@@ -12,9 +12,9 @@ function App() {
       <Header />
       <div className='content'>
         <Routes>
-          <Route path={Paths.HOME} element={<Home />}></Route>
-          <Route path={Paths.CART} element={<Cart />}></Route>
-          <Route path={Paths.ERROR} element={<Error />}></Route>
+          <Route path={PATHS.HOME} element={<Home />}></Route>
+          <Route path={PATHS.CART} element={<Cart />}></Route>
+          <Route path={PATHS.ERROR} element={<Error />}></Route>
         </Routes>
       </div>
     </div>
