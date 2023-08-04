@@ -4,15 +4,19 @@
 .header {
   border-bottom: 1px solid $gray-line;
   padding: 40px 0;
-
   .container {
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
+  &__cart--floating{
+    display: none;
+
+  }
 
   &__logo {
     display: flex;
+    align-items: center;
 
     img {
       margin-right: 15px;
@@ -21,13 +25,36 @@
     h1 {
       color: #181818;
       font-size: 24px;
-      letter-spacing: 1%;
       text-transform: uppercase;
       font-weight: 800;
     }
 
     p {
       color: #7b7b7b;
+    }
+    @media (max-width: 650px) {
+      p{
+        display: none;
+      }
+    }
+  }
+}
+@media (max-width: 520px) {
+  .header {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    &__cart--floating{
+      display: block;
+      position: fixed;
+      top: 93vh;
+      left: 15px;
+    }
+    &__cart{
+      display: none;
+    }
+    .container {
+      flex-direction: column;
+      gap: 15px;
     }
   }
 }
