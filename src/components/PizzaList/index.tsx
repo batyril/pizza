@@ -4,16 +4,21 @@ import { useEffect, useState } from 'react';
 import { pizzaService } from '../../service/pizzaService.ts';
 import { Pizza } from '../../const/interfaces.ts';
 
-export const PizzaList = () => {
+interface IPizzaList {
+  activeSort: string;
+  activeCategory: number;
+}
+
+export const PizzaList = ({ activeSort, activeCategory }: IPizzaList) => {
   const [pizzas, setPizzas] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { getPizzas } = pizzaService();
   useEffect(() => {
-    getPizzas().then((res) => {
+    getPizzas(activeSort, activeCategory).then((res) => {
       setPizzas(res);
       setIsLoading(true);
     });
-  }, []);
+  }, [activeSort, activeCategory]);
   return (
     <>
       <h2 className='content__title'>Все пиццы</h2>

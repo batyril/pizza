@@ -1,9 +1,12 @@
 import { useState } from 'react';
 
-export const Sort = () => {
-  const sorts = ['популярности', 'цене', 'алфавиту'];
+interface ISort {
+  activeSort: string;
+  setActiveSort: React.Dispatch<React.SetStateAction<string>>;
+  sorts: string[];
+}
+export const Sort = ({ activeSort, setActiveSort, sorts }: ISort) => {
   const [open, setOpen] = useState(false);
-  const [activeSort, setActiveSort] = useState('популярности');
   return (
     <div className='sort'>
       <div className='sort__label'>
@@ -25,8 +28,9 @@ export const Sort = () => {
       {open && (
         <div className='sort__popup'>
           <ul>
-            {sorts.map((sort) => (
+            {sorts.map((sort, index) => (
               <li
+                key={index}
                 onClick={() => {
                   setActiveSort(sort);
                   setOpen(false);
