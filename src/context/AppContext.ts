@@ -1,15 +1,10 @@
 import { createContext } from 'react';
 
-const defaultValue = {
-  sorts: ['популярности', 'цене', 'алфавиту'],
-  categories: [
-    'Все',
-    'Мясные',
-    'Вегетарианская',
-    'Гриль',
-    'Острые',
-    'Закрытые',
-  ],
-};
+interface IContext {
+  searchValue: string;
+  setSearchValue?: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const defaultValue: IContext = { searchValue: '' };
 
 export const AppContext = createContext(defaultValue);

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { PATHS } from '../../const/paths.ts';
+import Search from '../Search';
 
 export const Header = () => {
   return (
@@ -14,6 +15,8 @@ export const Header = () => {
             </div>
           </div>
         </Link>
+
+        <Search />
 
         <div className='header__cart'>
           <Link to={PATHS.CART} className='button button--cart'>

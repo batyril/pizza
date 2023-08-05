@@ -1,8 +1,9 @@
 import { PizzaBlock } from '../PizzaBlock';
 import { Skeleton } from '../Skeleton';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { pizzaService } from '../../service/pizzaService.ts';
 import { Pizza, SortType } from '../../const/interfaces.ts';
+import { AppContext } from '../../context/AppContext.ts';
 
 interface IPizzaList {
   activeSort: SortType;
@@ -10,25 +11,30 @@ interface IPizzaList {
 }
 
 export const PizzaList = ({ activeSort, activeCategory }: IPizzaList) => {
+  const { searchValue } = useContext(AppContext);
   const [pizzas, setPizzas] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { getPizzas } = pizzaService();
   useEffect(() => {
     setIsLoading(false);
-    getPizzas(activeSort, activeCategory).then((res) => {
+    getPizzas(activeSort, activeCategory, searchValue).then((res) => {
       setPizzas(res);
       setIsLoading(true);
     });
-  }, [activeSort, activeCategory]);
+  }, [activeSort, searchValue, activeCategory]);
+
+  const skeletons = [...new Array(6)].map((_, index) => (
+    <Skeleton key={index} />
+  ));
+  const renderPizza = pizzas.map((pizza: Pizza) => (
+    <PizzaBlock key={pizza.id} {...pizza} />
+  ));
+
   return (
     <>
       <h2 className='content__title'>Все пиццы</h2>
       <div className='content__items'>
-        {isLoading
-          ? pizzas.map((pizza: Pizza) => (
-              <PizzaBlock key={pizza.id} {...pizza} />
-            ))
-          : [...new Array(6)].map((_, index) => <Skeleton key={index} />)}
+        {isLoading ? renderPizza : skeletons}
       </div>
     </>
   );
