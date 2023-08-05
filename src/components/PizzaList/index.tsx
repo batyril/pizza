@@ -17,20 +17,18 @@ export const PizzaList = ({ activeSort, activeCategory }: IPizzaList) => {
   const { getPizzas } = pizzaService();
   useEffect(() => {
     setIsLoading(false);
-    getPizzas(activeSort, activeCategory).then((res) => {
+    getPizzas(activeSort, activeCategory, searchValue).then((res) => {
       setPizzas(res);
       setIsLoading(true);
     });
-  }, [activeSort, activeCategory]);
+  }, [activeSort, searchValue, activeCategory]);
 
   const skeletons = [...new Array(6)].map((_, index) => (
     <Skeleton key={index} />
   ));
-  const renderPizza = pizzas
-    .filter((pizza: Pizza) =>
-      pizza.title.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()),
-    )
-    .map((pizza: Pizza) => <PizzaBlock key={pizza.id} {...pizza} />);
+  const renderPizza = pizzas.map((pizza: Pizza) => (
+    <PizzaBlock key={pizza.id} {...pizza} />
+  ));
 
   return (
     <>
