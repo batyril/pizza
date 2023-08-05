@@ -1,0 +1,40 @@
+.search {
+  position: relative;
+
+}
+
+.input {
+  border: 1px solid rgba(0, 0, 0, 0.31);
+  font-size: 20px;
+  height: 50px;
+  border-radius: 12px;
+  width: 200px;
+  padding-left: 40px;
+  padding-right: 40px;
+  transition: width ease-in-out 0.3s;
+
+  &:focus {
+    width: 95%;
+    border: 1px solid rgba(0, 0, 0, 0.74);
+  }
+}
+
+.icon__search {
+  opacity: 0.5;
+  top: 50%;
+  left: 10px;
+  position: absolute;
+  width: 25px;
+  transform: translateY(-50%);
+  height: 25px;
+}
+
+.icon__close {
+  opacity: 0.5;
+  top: 50%;
+  right: 10px;
+  position: absolute;
+  width: 25px;
+  transform: translateY(-50%);
+  height: 25px;
+}
