@@ -1,30 +1,36 @@
-import { useState } from 'react';
+interface ICategories {
+  activeCategory: number;
+  setActiveCategory: React.Dispatch<React.SetStateAction<number>>;
+}
 
-export const Categories = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const categories = [
-    'Все',
-    'Мясные',
-    'Вегетарианская',
-    'Гриль',
-    'Острые',
-    'Закрытые',
-  ];
-
+export const Categories = ({
+  activeCategory,
+  setActiveCategory,
+}: ICategories) => {
   const onClickCategory = (index: number) => {
-    setActiveIndex(index);
+    setActiveCategory(index);
   };
+
+  const categories = [
+    { name: 'Все', id: 6 },
+    { name: 'Мясные', id: 0 },
+    { name: 'Гриль', id: 1 },
+    { name: 'Вегетарианская', id: 2 },
+    { name: 'Острые', id: 3 },
+    { name: 'C Мазиком', id: 4 },
+    { name: 'Закрытые', id: 5 },
+  ];
 
   return (
     <div className='categories'>
       <ul>
-        {categories.map((category, categoryIndex) => (
+        {categories.map((category) => (
           <li
-            onClick={() => onClickCategory(categoryIndex)}
-            className={activeIndex === categoryIndex ? 'active' : ''}
-            key={categoryIndex}
+            onClick={() => onClickCategory(category.id)}
+            className={activeCategory === category.id ? 'active' : ''}
+            key={category.id}
           >
-            {category}
+            {category.name}
           </li>
         ))}
       </ul>
