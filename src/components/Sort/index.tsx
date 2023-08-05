@@ -1,12 +1,47 @@
 import { useState } from 'react';
+import { SortType } from '../../const/interfaces.ts';
 
 interface ISort {
-  activeSort: string;
-  setActiveSort: React.Dispatch<React.SetStateAction<string>>;
-  sorts: string[];
+  activeSort: { name: string; sort: string };
+  setActiveSort: React.Dispatch<React.SetStateAction<SortType>>;
 }
-export const Sort = ({ activeSort, setActiveSort, sorts }: ISort) => {
+
+export const Sort = ({ activeSort, setActiveSort }: ISort) => {
   const [open, setOpen] = useState(false);
+  const sorts: SortType[] = [
+    {
+      name: 'популярности ↓',
+      sort: 'rating',
+      order: 'desc',
+    },
+    {
+      name: 'популярности ↑',
+      sort: 'rating',
+      order: 'asc',
+    },
+
+    {
+      name: 'цене ↓',
+      sort: 'price',
+      order: 'desc',
+    },
+    {
+      name: 'цене ↑',
+      sort: 'price',
+      order: 'asc',
+    },
+
+    {
+      name: 'алфавиту ↓',
+      sort: 'title',
+      order: 'desc',
+    },
+    {
+      name: 'алфавиту ↑',
+      sort: 'title',
+      order: 'asc',
+    },
+  ];
   return (
     <div className='sort'>
       <div className='sort__label'>
@@ -23,7 +58,7 @@ export const Sort = ({ activeSort, setActiveSort, sorts }: ISort) => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setOpen(!open)}>{activeSort}</span>
+        <span onClick={() => setOpen(!open)}>{activeSort.name}</span>
       </div>
       {open && (
         <div className='sort__popup'>
@@ -37,7 +72,7 @@ export const Sort = ({ activeSort, setActiveSort, sorts }: ISort) => {
                 }}
                 className={activeSort === sort ? 'active' : ''}
               >
-                {sort}
+                {sort.name}
               </li>
             ))}
           </ul>

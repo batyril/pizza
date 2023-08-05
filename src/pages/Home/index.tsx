@@ -2,22 +2,18 @@ import { Categories } from '../../components/Categories';
 import { Sort } from '../../components/Sort';
 import { PizzaList } from '../../components/PizzaList';
 import { useEffect, useState } from 'react';
+import { SortType } from '../../const/interfaces.ts';
 
 export const Home = () => {
-  const sorts = ['популярности', 'цене', 'алфавиту'];
   useEffect(() => window.scrollTo(0, 0), []);
-  const [activeSort, setActiveSort] = useState(sorts[0]);
-
-  const categories = [
-    { name: 'Все', id: 6 },
-    { name: 'Мясные', id: 0 },
-    { name: 'Гриль', id: 1 },
-    { name: 'Вегетарианская', id: 2 },
-    { name: 'Острые', id: 3 },
-    { name: 'C Мазиком', id: 4 },
-    { name: 'Закрытые', id: 5 },
-  ];
-  const [activeCategory, setActiveCategory] = useState(categories[0].id);
+  const defaultCategory = 6;
+  const defaultSort: SortType = {
+    name: 'популярности ↓',
+    sort: 'rating',
+    order: 'desc',
+  };
+  const [activeSort, setActiveSort] = useState(defaultSort);
+  const [activeCategory, setActiveCategory] = useState(defaultCategory);
 
   return (
     <div className='container'>
@@ -25,13 +21,8 @@ export const Home = () => {
         <Categories
           activeCategory={activeCategory}
           setActiveCategory={setActiveCategory}
-          categories={categories}
         />
-        <Sort
-          sorts={sorts}
-          activeSort={activeSort}
-          setActiveSort={setActiveSort}
-        />
+        <Sort activeSort={activeSort} setActiveSort={setActiveSort} />
       </div>
       <PizzaList activeCategory={activeCategory} activeSort={activeSort} />
     </div>

@@ -2,10 +2,10 @@ import { PizzaBlock } from '../PizzaBlock';
 import { Skeleton } from '../Skeleton';
 import { useEffect, useState } from 'react';
 import { pizzaService } from '../../service/pizzaService.ts';
-import { Pizza } from '../../const/interfaces.ts';
+import { Pizza, SortType } from '../../const/interfaces.ts';
 
 interface IPizzaList {
-  activeSort: string;
+  activeSort: SortType;
   activeCategory: number;
 }
 
@@ -14,6 +14,7 @@ export const PizzaList = ({ activeSort, activeCategory }: IPizzaList) => {
   const [isLoading, setIsLoading] = useState(false);
   const { getPizzas } = pizzaService();
   useEffect(() => {
+    setIsLoading(false);
     getPizzas(activeSort, activeCategory).then((res) => {
       setPizzas(res);
       setIsLoading(true);

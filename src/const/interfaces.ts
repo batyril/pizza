@@ -8,3 +8,9 @@ export interface Pizza {
   category: number;
   rating: number;
 }
+
+export interface SortType {
+  name: string;
+  sort: string;
+  order: 'asc' | 'desc';
+}
