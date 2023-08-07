@@ -11,17 +11,36 @@ interface IPizzaList {
 }
 
 export const PizzaList = ({ activeSort, activeCategory }: IPizzaList) => {
+  const [currentPage, setCurrentPage] = useState(1);
   const { searchValue } = useContext(AppContext);
-  const [pizzas, setPizzas] = useState([]);
+  const [pizzas, setPizzas] = useState<Pizza[] | []>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [totalCount, setTotalCount] = useState(0);
   const { getPizzas } = pizzaService();
-  useEffect(() => {
+
+  const fetchData = async (page: number) => {
     setIsLoading(false);
-    getPizzas(activeSort, activeCategory, searchValue).then((res) => {
-      setPizzas(res);
-      setIsLoading(true);
-    });
-  }, [activeSort, searchValue, activeCategory]);
+    await getPizzas(activeSort, activeCategory, searchValue, page)
+      .then((res) => {
+        setPizzas((prevPizzas) => {
+          if (page === 1) {
+            return res.data;
+          } else {
+            return [...prevPizzas, ...res.data];
+          }
+        });
+        setTotalCount(Number(res.headers['x-total-count']));
+      })
+      .finally(() => setIsLoading(true));
+  };
+
+  useEffect(() => {
+    setPizzas([]);
+    setCurrentPage(1);
+  }, [activeSort, activeCategory, searchValue]);
+  useEffect(() => {
+    fetchData(currentPage);
+  }, [currentPage, activeSort, activeCategory, searchValue]);
 
   const skeletons = [...new Array(6)].map((_, index) => (
     <Skeleton key={index} />
@@ -36,6 +55,14 @@ export const PizzaList = ({ activeSort, activeCategory }: IPizzaList) => {
       <div className='content__items'>
         {isLoading ? renderPizza : skeletons}
       </div>
+      {pizzas.length === totalCount ? null : (
+        <button
+          className='content__button'
+          onClick={() => setCurrentPage((prevState) => prevState + 1)}
+        >
+          Загрузить еще
+        </button>
+      )}
     </>
   );
 };

@@ -1,11 +1,12 @@
 import { Categories } from '../../components/Categories';
 import { Sort } from '../../components/Sort';
 import { PizzaList } from '../../components/PizzaList';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { SortType } from '../../const/interfaces.ts';
+import useScrollToTop from '../../hooks/useScrollToTop.ts';
 
 export const Home = () => {
-  useEffect(() => window.scrollTo(0, 0), []);
+  useScrollToTop();
   const defaultCategory = 6;
   const defaultSort: SortType = {
     name: 'популярности ↓',
