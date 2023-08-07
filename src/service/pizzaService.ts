@@ -7,14 +7,21 @@ export const pizzaService = () => {
     activeSort: SortType,
     activeCategory: number,
     searchValue: string,
+    currentPage: number,
   ) => {
     const defaultCategory = 6;
     const categoryFilter =
-      activeCategory === defaultCategory ? '' : `category=${activeCategory}`;
-    const res = await axios.get(
-      `${apiBase}pizzas?_sort=${activeSort.sort}&_order=${activeSort.order}&${categoryFilter}&q=${searchValue}`,
-    );
-    return res.data;
+      activeCategory === defaultCategory ? `` : `category=${activeCategory}`;
+    const pizzasOnPage = 4;
+    return await axios.get(`${apiBase}pizzas?${categoryFilter}`, {
+      params: {
+        _sort: activeSort.sort,
+        _order: activeSort.order,
+        q: searchValue,
+        _page: currentPage,
+        _limit: pizzasOnPage,
+      },
+    });
   };
   return { getPizzas };
 };
