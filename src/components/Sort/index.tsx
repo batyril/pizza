@@ -4,44 +4,46 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { setSort } from '../../store/filterSlice.ts';
 
+export const sorts: SortType[] = [
+  {
+    name: 'популярности ↓',
+    sort: 'rating',
+    order: 'desc',
+  },
+  {
+    name: 'популярности ↑',
+    sort: 'rating',
+    order: 'asc',
+  },
+
+  {
+    name: 'цене ↓',
+    sort: 'price',
+    order: 'desc',
+  },
+  {
+    name: 'цене ↑',
+    sort: 'price',
+    order: 'asc',
+  },
+
+  {
+    name: 'алфавиту ↓',
+    sort: 'title',
+    order: 'desc',
+  },
+  {
+    name: 'алфавиту ↑',
+    sort: 'title',
+    order: 'asc',
+  },
+];
+
 export const Sort = () => {
   const { activeSort } = useSelector((state: RootState) => state.filter);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const sorts: SortType[] = [
-    {
-      name: 'популярности ↓',
-      sort: 'rating',
-      order: 'desc',
-    },
-    {
-      name: 'популярности ↑',
-      sort: 'rating',
-      order: 'asc',
-    },
 
-    {
-      name: 'цене ↓',
-      sort: 'price',
-      order: 'desc',
-    },
-    {
-      name: 'цене ↑',
-      sort: 'price',
-      order: 'asc',
-    },
-
-    {
-      name: 'алфавиту ↓',
-      sort: 'title',
-      order: 'desc',
-    },
-    {
-      name: 'алфавиту ↑',
-      sort: 'title',
-      order: 'asc',
-    },
-  ];
   return (
     <div className='sort'>
       <div className='sort__label'>
