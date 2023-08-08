@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { SortType } from '../../const/interfaces.ts';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
@@ -41,11 +41,23 @@ export const sorts: SortType[] = [
 
 export const Sort = () => {
   const { activeSort } = useSelector((state: RootState) => state.filter);
+  const sortRef = useRef();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    const handleClickOutside = (ev) => {
+      const isCheckClick = ev.composedPath().includes(sortRef.current);
+      if (!isCheckClick) setOpen(false);
+    };
+    document.body.addEventListener('click', handleClickOutside);
+    return () => {
+      document.body.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className='sort'>
+    <div ref={sortRef} className='sort'>
       <div className='sort__label'>
         <svg
           width='10'
