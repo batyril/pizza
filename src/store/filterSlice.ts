@@ -10,7 +10,7 @@ export interface CounterState {
 }
 
 const defaultCategory = 6;
-const defaultPage = 6;
+const defaultPage = 1;
 const defaultSort: SortType = {
   name: 'популярности ↓',
   sort: 'rating',
