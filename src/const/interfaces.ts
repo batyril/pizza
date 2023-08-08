@@ -1,4 +1,4 @@
-export interface Pizza {
+export interface IPizza {
   id: number;
   imageUrl: string;
   title: string;
