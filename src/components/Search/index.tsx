@@ -1,16 +1,36 @@
 import styles from './Search.module.scss';
-import { useContext } from 'react';
+import { ChangeEvent, useCallback, useContext, useRef, useState } from 'react';
 import { AppContext } from '../../context/AppContext.ts';
+import debounce from 'lodash.debounce';
 
 const Search = () => {
+  const [value, setValue] = useState('');
   const { searchValue, setSearchValue } = useContext(AppContext);
+  const inputRef = useRef(null);
+
+  const updateSearch = useCallback((search: string) => {
+    debounce(() => {
+      setSearchValue ? setSearchValue(search) : '';
+    }, 1000);
+  }, []);
+
+  const onChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
+    setValue ? setValue(event.target.value) : '';
+    updateSearch(event.target.value);
+  };
+
+  const onResetInput = () => {
+    setSearchValue ? setSearchValue('') : '';
+    setValue('');
+    inputRef.current.focus();
+  };
+
   return (
     <div className={styles.search}>
       <input
-        value={searchValue}
-        onChange={(event) =>
-          setSearchValue ? setSearchValue(event.target.value) : ''
-        }
+        ref={inputRef}
+        value={value}
+        onChange={onChangeInput}
         className={styles.input}
         placeholder='Поиск пиццы....'
       ></input>
@@ -29,7 +49,7 @@ const Search = () => {
 
       {searchValue.length > 0 ? (
         <svg
-          onClick={() => (setSearchValue ? setSearchValue('') : '')}
+          onClick={onResetInput}
           className={styles.icon__close}
           height='48'
           viewBox='0 0 48 48'

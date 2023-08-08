@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { SortType } from '../../const/interfaces.ts';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { setSort } from '../../store/filterSlice.ts';
 
-interface ISort {
-  activeSort: { name: string; sort: string };
-  setActiveSort: React.Dispatch<React.SetStateAction<SortType>>;
-}
-
-export const Sort = ({ activeSort, setActiveSort }: ISort) => {
+export const Sort = () => {
+  const { activeSort } = useSelector((state: RootState) => state.filter);
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const sorts: SortType[] = [
     {
@@ -67,7 +67,7 @@ export const Sort = ({ activeSort, setActiveSort }: ISort) => {
               <li
                 key={index}
                 onClick={() => {
-                  setActiveSort(sort);
+                  dispatch(setSort(sort));
                   setOpen(false);
                 }}
                 className={activeSort === sort ? 'active' : ''}

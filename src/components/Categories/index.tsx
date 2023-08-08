@@ -1,14 +1,12 @@
-interface ICategories {
-  activeCategory: number;
-  setActiveCategory: React.Dispatch<React.SetStateAction<number>>;
-}
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { setCategory } from '../../store/filterSlice.ts';
 
-export const Categories = ({
-  activeCategory,
-  setActiveCategory,
-}: ICategories) => {
+export const Categories = () => {
+  const { activeCategory } = useSelector((state: RootState) => state.filter);
+  const dispatch = useDispatch();
   const onClickCategory = (index: number) => {
-    setActiveCategory(index);
+    dispatch(setCategory(index));
   };
 
   const categories = [

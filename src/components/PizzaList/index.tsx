@@ -2,18 +2,17 @@ import { PizzaBlock } from '../PizzaBlock';
 import { Skeleton } from '../Skeleton';
 import { useContext, useEffect, useState } from 'react';
 import { pizzaService } from '../../service/pizzaService.ts';
-import { Pizza, SortType } from '../../const/interfaces.ts';
+import { IPizza } from '../../const/interfaces.ts';
 import { AppContext } from '../../context/AppContext.ts';
-
-interface IPizzaList {
-  activeSort: SortType;
-  activeCategory: number;
-}
-
-export const PizzaList = ({ activeSort, activeCategory }: IPizzaList) => {
-  const [currentPage, setCurrentPage] = useState(1);
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { setPage } from '../../store/filterSlice.ts';
+export const PizzaList = () => {
+  const { activeCategory, activeSort, currentPage } = useSelector(
+    (state: RootState) => state.filter,
+  );
   const { searchValue } = useContext(AppContext);
-  const [pizzas, setPizzas] = useState<Pizza[] | []>([]);
+  const [pizzas, setPizzas] = useState<IPizza[] | []>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [totalCount, setTotalCount] = useState(0);
   const { getPizzas } = pizzaService();
@@ -36,7 +35,7 @@ export const PizzaList = ({ activeSort, activeCategory }: IPizzaList) => {
 
   useEffect(() => {
     setPizzas([]);
-    setCurrentPage(1);
+    setPage(1);
   }, [activeSort, activeCategory, searchValue]);
   useEffect(() => {
     fetchData(currentPage);
@@ -45,7 +44,7 @@ export const PizzaList = ({ activeSort, activeCategory }: IPizzaList) => {
   const skeletons = [...new Array(6)].map((_, index) => (
     <Skeleton key={index} />
   ));
-  const renderPizza = pizzas.map((pizza: Pizza) => (
+  const renderPizza = pizzas.map((pizza: IPizza) => (
     <PizzaBlock key={pizza.id} {...pizza} />
   ));
 
@@ -58,7 +57,7 @@ export const PizzaList = ({ activeSort, activeCategory }: IPizzaList) => {
       {pizzas.length === totalCount ? null : (
         <button
           className='content__button'
-          onClick={() => setCurrentPage((prevState) => prevState + 1)}
+          onClick={() => setPage(currentPage + 1)}
         >
           Загрузить еще
         </button>
