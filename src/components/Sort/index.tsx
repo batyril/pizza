@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { SortType } from '../../const/interfaces.ts';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { setSort } from '../../store/filterSlice.ts';
+import { setSort } from '../../slices/filterSlice.ts';
 
 export const sorts: SortType[] = [
   {

@@ -1,5 +1,10 @@
 import { useState } from 'react';
-import { IPizza } from '../../const/interfaces.ts';
+import { ICart, IPizza } from '../../const/interfaces.ts';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { addPizzaCart } from '../../slices/cartSlice.ts';
+
+const typesName = ['тонкое', 'традиционное'];
 
 export const PizzaBlock = ({
   title,
@@ -7,11 +12,28 @@ export const PizzaBlock = ({
   types,
   sizes,
   price,
+  id,
 }: IPizza) => {
-  const typesName = ['тонкое', 'традиционное'];
-  const [pizzaCount, setPizzaCount] = useState(0);
   const [activeSize, setActiveSize] = useState(sizes[0]);
   const [activeType, setActiveType] = useState(0);
+  const dispatch = useDispatch();
+  const addPizzaCount = useSelector((state: RootState) =>
+    state.cart.items.find((obj) => obj.id === id),
+  );
+  const checkAddPizza = addPizzaCount ? <i>{addPizzaCount.count}</i> : null;
+  const onClickAdd = () => {
+    console.log(typesName[activeType]);
+    const items: ICart = {
+      id,
+      title,
+      price,
+      imageUrl,
+      size: activeSize,
+      typesName: typesName[activeType],
+      count: 0,
+    };
+    dispatch(addPizzaCart(items));
+  };
 
   return (
     <div className='pizza-block'>
@@ -62,12 +84,12 @@ export const PizzaBlock = ({
           </svg>
           <span
             onClick={() => {
-              setPizzaCount(pizzaCount + 1);
+              onClickAdd();
             }}
           >
             Добавить
           </span>
-          <i>{pizzaCount}</i>
+          {checkAddPizza}
         </div>
       </div>
     </div>

@@ -5,7 +5,7 @@ import { pizzaService } from '../../service/pizzaService.ts';
 import { IPizza } from '../../const/interfaces.ts';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { setFilers, setPage } from '../../store/filterSlice.ts';
+import { setFilers, setPage } from '../../slices/filterSlice.ts';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 import { sorts } from '../Sort';
@@ -38,18 +38,29 @@ export const PizzaList = () => {
 
   const fetchData = async (page: number) => {
     setIsLoading(false);
-    await getPizzas(activeSort, activeCategory, searchValue, page)
-      .then((res) => {
-        setPizzas((prevPizzas) => {
-          if (page === 1) {
-            return res.data;
-          } else {
-            return [...prevPizzas, ...res.data];
-          }
-        });
-        setTotalCount(Number(res.headers['x-total-count']));
-      })
-      .finally(() => setIsLoading(true));
+
+    try {
+      const res = await getPizzas(
+        activeSort,
+        activeCategory,
+        searchValue,
+        page,
+      );
+
+      setPizzas((prevPizzas) => {
+        if (page === 1) {
+          return res.data;
+        } else {
+          return [...prevPizzas, ...res.data];
+        }
+      });
+
+      setTotalCount(Number(res.headers['x-total-count']));
+    } catch (error) {
+      // Обработка ошибок, если необходимо
+    } finally {
+      setIsLoading(true);
+    }
   };
 
   useEffect(() => {

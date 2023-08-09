@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { setCategory } from '../../store/filterSlice.ts';
+import { setCategory } from '../../slices/filterSlice.ts';
 
 export const Categories = () => {
   const { activeCategory } = useSelector((state: RootState) => state.filter);
