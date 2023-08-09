@@ -41,13 +41,14 @@ export const sorts: SortType[] = [
 
 export const Sort = () => {
   const { activeSort } = useSelector((state: RootState) => state.filter);
-  const sortRef = useRef();
+  const sortRef = useRef<HTMLDivElement | null>(null);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const handleClickOutside = (ev) => {
-      const isCheckClick = ev.composedPath().includes(sortRef.current);
+    const handleClickOutside = (ev: MouseEvent) => {
+      const isCheckClick =
+        sortRef.current && ev.composedPath().includes(sortRef.current);
       if (!isCheckClick) setOpen(false);
     };
     document.body.addEventListener('click', handleClickOutside);

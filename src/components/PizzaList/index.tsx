@@ -1,26 +1,27 @@
 import { PizzaBlock } from '../PizzaBlock';
 import { Skeleton } from '../Skeleton';
-import { useEffect, useRef, useState } from 'react';
-import { pizzaService } from '../../service/pizzaService.ts';
+import { useEffect, useRef } from 'react';
 import { IPizza } from '../../const/interfaces.ts';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store';
+import { AppDispatch, RootState } from '../../store';
 import { setFilers, setPage } from '../../slices/filterSlice.ts';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 import { sorts } from '../Sort';
+import { setPizzas, fetchPizzas } from '../../slices/pizzasSLice.ts';
+import ErrorRequest from '../ErrorRequest';
+
 export const PizzaList = () => {
   const isMounted = useRef(false);
   const isSearch = useRef(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const { activeCategory, activeSort, currentPage, searchValue } = useSelector(
     (state: RootState) => state.filter,
   );
-  const [pizzas, setPizzas] = useState<IPizza[] | []>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [totalCount, setTotalCount] = useState(0);
-  const { getPizzas } = pizzaService();
+  const { items, loadingStatus, totalCount } = useSelector(
+    (state: RootState) => state.pizza,
+  );
 
   useEffect(() => {
     const urlParams = window.location.search;
@@ -37,30 +38,7 @@ export const PizzaList = () => {
   }, []);
 
   const fetchData = async (page: number) => {
-    setIsLoading(false);
-
-    try {
-      const res = await getPizzas(
-        activeSort,
-        activeCategory,
-        searchValue,
-        page,
-      );
-
-      setPizzas((prevPizzas) => {
-        if (page === 1) {
-          return res.data;
-        } else {
-          return [...prevPizzas, ...res.data];
-        }
-      });
-
-      setTotalCount(Number(res.headers['x-total-count']));
-    } catch (error) {
-      // Обработка ошибок, если необходимо
-    } finally {
-      setIsLoading(true);
-    }
+    dispatch(fetchPizzas({ activeSort, activeCategory, searchValue, page }));
   };
 
   useEffect(() => {
@@ -87,17 +65,21 @@ export const PizzaList = () => {
   const skeletons = [...new Array(4)].map((_, index) => (
     <Skeleton key={index} />
   ));
-  const renderPizza = pizzas.map((pizza: IPizza) => (
+  const renderPizza = items.map((pizza: IPizza) => (
     <PizzaBlock key={pizza.id} {...pizza} />
   ));
-
   return (
     <>
       <h2 className='content__title'>Все пиццы</h2>
-      <div className='content__items'>
-        {isLoading ? renderPizza : skeletons}
-      </div>
-      {pizzas.length === totalCount ? null : (
+      {loadingStatus === 'error' ? (
+        <ErrorRequest />
+      ) : (
+        <div className='content__items'>
+          {loadingStatus === 'loading' ? skeletons : renderPizza}
+        </div>
+      )}
+
+      {items.length === totalCount ? null : (
         <button
           className='content__button'
           onClick={() => dispatch(setPage(currentPage + 1))}

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { ICart } from '../const/interfaces.ts';
 import calculateTotalPrice from '../helpers/calculateTotalPrice.ts';
 
-export interface CounterState {
+interface CounterState {
   totalPrice: number;
   items: ICart[];
 }

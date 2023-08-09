@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { SortType } from '../const/interfaces.ts';
 
-export interface CounterState {
+interface CounterState {
   activeSort: SortType;
   activeCategory: number;
   currentPage: number;
