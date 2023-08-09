@@ -9,6 +9,12 @@ export interface IPizza {
   rating: number;
 }
 
+export interface CounterState {
+  items: IPizza[];
+  loadingStatus: 'idle' | 'loading' | 'error';
+  totalCount: number;
+}
+
 export interface ICart {
   count: number;
   price: number;

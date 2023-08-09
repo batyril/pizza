@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import pizzaReducer from '../slices/filterSlice.ts';
-import cartSliceReducer from '../slices/cartSlice.ts';
+import filterReducer from '../slices/filterSlice.ts';
+import cartReducer from '../slices/cartSlice.ts';
+import pizzaReducer from '../slices/pizzasSLice.ts';
 
 export const store = configureStore({
-  reducer: { filter: pizzaReducer, cart: cartSliceReducer },
+  reducer: { filter: filterReducer, cart: cartReducer, pizza: pizzaReducer },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
