@@ -9,6 +9,16 @@ export interface IPizza {
   rating: number;
 }
 
+export interface ICart {
+  count: number;
+  price: number;
+  id: number;
+  title: string;
+  imageUrl: string;
+  size: number;
+  typesName: string;
+}
+
 export interface SortType {
   name: string;
   sort: string;

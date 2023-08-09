@@ -1,8 +1,15 @@
 import { Link } from 'react-router-dom';
 import { PATHS } from '../../const/paths.ts';
 import Search from '../Search';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 export const Header = () => {
+  const { totalPrice, items } = useSelector((state: RootState) => state.cart);
+
+  const totalCount = items.reduce((sum, item) => {
+    return sum + item.count;
+  }, 0);
   return (
     <div className='header'>
       <div className='container'>
@@ -20,7 +27,7 @@ export const Header = () => {
 
         <div className='header__cart'>
           <Link to={PATHS.CART} className='button button--cart'>
-            <span>520 ₽</span>
+            <span>{totalPrice} ₽</span>
             <div className='button__delimiter'></div>
             <svg
               width='18'
@@ -51,7 +58,7 @@ export const Header = () => {
                 strokeLinejoin='round'
               />
             </svg>
-            <span>3</span>
+            <span>{totalCount}</span>
           </Link>
         </div>
         <div className='header__cart--floating'>
@@ -85,7 +92,7 @@ export const Header = () => {
                 strokeLinejoin='round'
               />
             </svg>
-            <span>3</span>
+            <span>{totalCount}</span>
           </Link>
         </div>
       </div>
