@@ -3,12 +3,20 @@ import { Skeleton } from '../Skeleton';
 import { useEffect, useRef } from 'react';
 import { IPizza } from '../../const/interfaces.ts';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../store';
-import { setFilers, setPage } from '../../slices/filterSlice.ts';
+import { AppDispatch } from '../../store';
+import {
+  filterSelector,
+  setFilers,
+  setPage,
+} from '../../slices/filterSlice.ts';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 import { sorts } from '../Sort';
-import { setPizzas, fetchPizzas } from '../../slices/pizzasSLice.ts';
+import {
+  setPizzas,
+  fetchPizzas,
+  pizzaSelector,
+} from '../../slices/pizzasSLice.ts';
 import ErrorRequest from '../ErrorRequest';
 
 export const PizzaList = () => {
@@ -16,12 +24,9 @@ export const PizzaList = () => {
   const isSearch = useRef(false);
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const { activeCategory, activeSort, currentPage, searchValue } = useSelector(
-    (state: RootState) => state.filter,
-  );
-  const { items, loadingStatus, totalCount } = useSelector(
-    (state: RootState) => state.pizza,
-  );
+  const { activeCategory, activeSort, currentPage, searchValue } =
+    useSelector(filterSelector);
+  const { items, loadingStatus, totalCount } = useSelector(pizzaSelector);
 
   useEffect(() => {
     const urlParams = window.location.search;

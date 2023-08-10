@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { ICart, IPizza } from '../../const/interfaces.ts';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store';
-import { addPizzaCart } from '../../slices/cartSlice.ts';
+import { addPizzaCart, cartSelectorById } from '../../slices/cartSlice.ts';
 
 const typesName = ['тонкое', 'традиционное'];
 
@@ -17,9 +16,7 @@ export const PizzaBlock = ({
   const [activeSize, setActiveSize] = useState(sizes[0]);
   const [activeType, setActiveType] = useState(0);
   const dispatch = useDispatch();
-  const addPizzaCount = useSelector((state: RootState) =>
-    state.cart.items.find((obj) => obj.id === id),
-  );
+  const addPizzaCount = useSelector(cartSelectorById(id));
   const checkAddPizza = addPizzaCount ? <i>{addPizzaCount.count}</i> : null;
   const onClickAdd = () => {
     console.log(typesName[activeType]);

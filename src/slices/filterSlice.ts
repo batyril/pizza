@@ -1,13 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { InitStateFilter, SortType } from '../const/interfaces.ts';
+import { RootState } from '../store';
 
-import { SortType } from '../const/interfaces.ts';
-
-interface CounterState {
-  activeSort: SortType;
-  activeCategory: number;
-  currentPage: number;
-  searchValue: string;
-}
+export const filterSelector = (state: RootState) => state.filter;
 
 const defaultCategory = 6;
 const defaultPage = 1;
@@ -17,7 +12,7 @@ const defaultSort: SortType = {
   order: 'desc',
 };
 
-const initialState: CounterState = {
+const initialState: InitStateFilter = {
   activeSort: defaultSort,
   activeCategory: defaultCategory,
   currentPage: defaultPage,

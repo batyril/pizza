@@ -1,13 +1,12 @@
 import { Link } from 'react-router-dom';
 import { PATHS } from '../../const/paths.ts';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store';
 import CartBlock from '../../components/CartBlock';
-import { clearPizzaCart } from '../../slices/cartSlice.ts';
+import { cartSelector, clearPizzaCart } from '../../slices/cartSlice.ts';
 import CartEmty from '../../components/CartEmpty';
 
 const Cart = () => {
-  const { items, totalPrice } = useSelector((state: RootState) => state.cart);
+  const { items, totalPrice } = useSelector(cartSelector);
 
   const totalCount = items.reduce((sum, item) => {
     return sum + item.count;

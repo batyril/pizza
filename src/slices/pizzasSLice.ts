@@ -1,23 +1,22 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { CounterState, SortType } from '../const/interfaces.ts';
+import { IFetchPizza, InitStatePizza } from '../const/interfaces.ts';
 import { pizzaService } from '../service/pizzaService.ts';
+import { RootState } from '../store';
 
-const initialState: CounterState = {
+const initialState: InitStatePizza = {
   items: [],
   loadingStatus: 'loading',
   totalCount: 0,
 };
 
-interface IFetchData {
-  activeSort: SortType;
-  activeCategory: number;
-  searchValue: string;
-  page: number;
-}
+export const pizzaSelector = (state: RootState) => state.pizza;
 
 export const fetchPizzas = createAsyncThunk(
   'pizza/fetchPizza',
-  async ({ activeSort, activeCategory, searchValue, page }: IFetchData) => {
+  async (
+    { activeSort, activeCategory, searchValue, page }: IFetchPizza,
+    thunkAPI,
+  ) => {
     const { getPizzas } = pizzaService();
     const { data, headers } = await getPizzas(
       activeSort,
@@ -25,6 +24,9 @@ export const fetchPizzas = createAsyncThunk(
       searchValue,
       page,
     );
+
+    console.log(thunkAPI);
+
     const totalCount = Number(headers['x-total-count']);
     return { data, totalCount, page };
   },
