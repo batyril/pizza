@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { InitStateCart } from '../const/interfaces.ts';
-import calculateTotalPrice from '../helpers/calculateTotalPrice.ts';
+import calculateTotalPrice from '../../helpers/calculateTotalPrice.ts';
+import { InitStateCart } from '../../const/interfaces.ts';
 
 const initialState: InitStateCart = {
   totalPrice: 0,

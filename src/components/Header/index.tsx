@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { PATHS } from '../../const/paths.ts';
 import Search from '../Search';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
+import { RootState } from '../../redux/store.ts';
 
 export const Header = () => {
   const totalPrice = useSelector((state: RootState) => state.cart.totalPrice);

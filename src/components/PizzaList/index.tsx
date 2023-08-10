@@ -3,18 +3,20 @@ import { Skeleton } from '../Skeleton';
 import { useEffect } from 'react';
 import { IPizza } from '../../const/interfaces.ts';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch } from '../../store';
-import { setPage } from '../../slices/filterSlice.ts';
-
-import { setPizzas, fetchPizzas } from '../../slices/pizzasSLice.ts';
+import { AppDispatch } from '../../redux/store.ts';
 import ErrorRequest from '../ErrorRequest';
 import {
-  pizzaSelector,
   selectActiveCategory,
   selectActiveSort,
   selectFilter,
+} from '../../redux/filter/selectors.ts';
+import {
+  pizzaSelector,
   selectPizzasItems,
-} from '../../slices/selectors.ts';
+} from '../../redux/pizza/selectors.ts';
+import { fetchPizzas } from '../../redux/pizza/AsyncAction.ts';
+import { setPizzas } from '../../redux/pizza/slice.ts';
+import { setPage } from '../../redux/filter/slice.ts';
 
 export const PizzaList = () => {
   const dispatch = useDispatch<AppDispatch>();

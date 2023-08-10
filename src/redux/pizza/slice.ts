@@ -1,34 +1,12 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { IFetchPizza, InitStatePizza } from '../const/interfaces.ts';
-import { pizzaService } from '../service/pizzaService.ts';
+import { createSlice } from '@reduxjs/toolkit';
+import { InitStatePizza } from '../../const/interfaces.ts';
+import { fetchPizzas } from './AsyncAction.ts';
 
 const initialState: InitStatePizza = {
   items: [],
   loadingStatus: 'loading',
   totalCount: 0,
 };
-
-export const fetchPizzas = createAsyncThunk(
-  'pizza/fetchPizza',
-  async (
-    { activeSort, activeCategory, searchValue, page }: IFetchPizza,
-    thunkAPI,
-  ) => {
-    const { getPizzas } = pizzaService();
-    const { data, headers } = await getPizzas(
-      activeSort,
-      activeCategory,
-      searchValue,
-      page,
-    );
-
-    const { dispatch } = thunkAPI;
-    const totalCount = Number(headers['x-total-count']);
-    dispatch(setTotalCount(totalCount));
-
-    return { data, page };
-  },
-);
 
 export const pizzaSlice = createSlice({
   name: 'pizza',

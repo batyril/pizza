@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { ICart, IPizza } from '../../const/interfaces.ts';
 import { useDispatch, useSelector } from 'react-redux';
-import { addPizzaCart } from '../../slices/cartSlice.ts';
 import { Link } from 'react-router-dom';
-import { cartSelectorById } from '../../slices/selectors.ts';
+import { cartSelectorById } from '../../redux/cart/selectors.ts';
+import { addPizzaCart } from '../../redux/cart/slice.ts';
 
 const typesName = ['тонкое', 'традиционное'];
 

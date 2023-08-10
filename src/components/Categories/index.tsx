@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { setCategory } from '../../slices/filterSlice.ts';
-import { selectActiveCategory } from '../../slices/selectors.ts';
+import { selectActiveCategory } from '../../redux/filter/selectors.ts';
+import { setCategory } from '../../redux/filter/slice.ts';
 
 const categories = [
   { name: 'Все', id: 6 },

@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { SortType } from '../../const/interfaces.ts';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSort } from '../../slices/filterSlice.ts';
-import { selectActiveSort } from '../../slices/selectors.ts';
+import { selectActiveSort } from '../../redux/filter/selectors.ts';
+import { setSort } from '../../redux/filter/slice.ts';
 
 export const sorts: SortType[] = [
   {

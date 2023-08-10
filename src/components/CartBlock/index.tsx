@@ -4,7 +4,7 @@ import {
   minusCount,
   plusCount,
   removePizzaCart,
-} from '../../slices/cartSlice.ts';
+} from '../../redux/cart/slice.ts';
 
 const CartBlock = ({
   id,
