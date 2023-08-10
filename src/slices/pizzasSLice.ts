@@ -25,10 +25,11 @@ export const fetchPizzas = createAsyncThunk(
       page,
     );
 
-    console.log(thunkAPI);
-
+    const { dispatch } = thunkAPI;
     const totalCount = Number(headers['x-total-count']);
-    return { data, totalCount, page };
+    dispatch(setTotalCount(totalCount));
+
+    return { data, page };
   },
 );
 
@@ -38,6 +39,9 @@ export const pizzaSlice = createSlice({
   reducers: {
     setPizzas: (state, action) => {
       state.items = action.payload;
+    },
+    setTotalCount: (state, action) => {
+      state.totalCount = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -52,7 +56,6 @@ export const pizzaSlice = createSlice({
         } else {
           state.items = [...state.items, ...action.payload.data];
         }
-        state.totalCount = action.payload.totalCount;
       })
       .addCase(fetchPizzas.rejected, (state) => {
         state.loadingStatus = 'error';
@@ -62,6 +65,6 @@ export const pizzaSlice = createSlice({
   },
 });
 
-export const { setPizzas } = pizzaSlice.actions;
+export const { setPizzas, setTotalCount } = pizzaSlice.actions;
 
 export default pizzaSlice.reducer;
