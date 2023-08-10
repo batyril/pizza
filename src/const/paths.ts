@@ -1,6 +1,7 @@
 export enum PATHS {
-  CART = '/cart',
+  BASE = '/',
+  CART = 'cart',
   ERROR = '*',
-  HOME = '/',
-  PIZZA = '/pizza/:id',
+  HOME = '',
+  PIZZA = 'pizza/:id',
 }
