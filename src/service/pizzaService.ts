@@ -23,5 +23,10 @@ export const pizzaService = () => {
       },
     });
   };
-  return { getPizzas };
+
+  const getPizzaById = async (id: number) => {
+    return await axios.get(`${apiBase}pizzas/${id}`);
+  };
+
+  return { getPizzas, getPizzaById };
 };

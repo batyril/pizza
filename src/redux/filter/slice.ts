@@ -1,8 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { InitStateFilter, SortType } from '../const/interfaces.ts';
-import { RootState } from '../store';
-
-export const filterSelector = (state: RootState) => state.filter;
+import { InitStateFilter, SortType } from '../../const/interfaces.ts';
 
 const defaultCategory = 6;
 const defaultPage = 1;

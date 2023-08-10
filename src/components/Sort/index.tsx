@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { SortType } from '../../const/interfaces.ts';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterSelector, setSort } from '../../slices/filterSlice.ts';
+import { selectActiveSort } from '../../redux/filter/selectors.ts';
+import { setSort } from '../../redux/filter/slice.ts';
 
 export const sorts: SortType[] = [
   {
@@ -39,7 +40,7 @@ export const sorts: SortType[] = [
 ];
 
 export const Sort = () => {
-  const { activeSort } = useSelector(filterSelector);
+  const activeSort = useSelector(selectActiveSort);
   const sortRef = useRef<HTMLDivElement | null>(null);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);

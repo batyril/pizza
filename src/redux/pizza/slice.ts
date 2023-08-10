@@ -1,7 +1,6 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { IFetchPizza, InitStatePizza } from '../const/interfaces.ts';
-import { pizzaService } from '../service/pizzaService.ts';
-import { RootState } from '../store';
+import { createSlice } from '@reduxjs/toolkit';
+import { InitStatePizza } from '../../const/interfaces.ts';
+import { fetchPizzas } from './AsyncAction.ts';
 
 const initialState: InitStatePizza = {
   items: [],
@@ -9,35 +8,15 @@ const initialState: InitStatePizza = {
   totalCount: 0,
 };
 
-export const pizzaSelector = (state: RootState) => state.pizza;
-
-export const fetchPizzas = createAsyncThunk(
-  'pizza/fetchPizza',
-  async (
-    { activeSort, activeCategory, searchValue, page }: IFetchPizza,
-    thunkAPI,
-  ) => {
-    const { getPizzas } = pizzaService();
-    const { data, headers } = await getPizzas(
-      activeSort,
-      activeCategory,
-      searchValue,
-      page,
-    );
-
-    console.log(thunkAPI);
-
-    const totalCount = Number(headers['x-total-count']);
-    return { data, totalCount, page };
-  },
-);
-
 export const pizzaSlice = createSlice({
   name: 'pizza',
   initialState,
   reducers: {
     setPizzas: (state, action) => {
       state.items = action.payload;
+    },
+    setTotalCount: (state, action) => {
+      state.totalCount = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -52,7 +31,6 @@ export const pizzaSlice = createSlice({
         } else {
           state.items = [...state.items, ...action.payload.data];
         }
-        state.totalCount = action.payload.totalCount;
       })
       .addCase(fetchPizzas.rejected, (state) => {
         state.loadingStatus = 'error';
@@ -62,6 +40,6 @@ export const pizzaSlice = createSlice({
   },
 });
 
-export const { setPizzas } = pizzaSlice.actions;
+export const { setPizzas, setTotalCount } = pizzaSlice.actions;
 
 export default pizzaSlice.reducer;
