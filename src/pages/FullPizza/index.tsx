@@ -13,7 +13,6 @@ const FullPizza = () => {
   const fetchPizza = async () => {
     setIsLoading(false);
     try {
-      console.log();
       const res = await getPizzaById(Number(pizzaId.id));
       setPizza(res.data);
     } catch (error) {
@@ -32,7 +31,7 @@ const FullPizza = () => {
     return <div>Загрузка...</div>;
   }
 
-  return <div>пицца полная {pizza.title}</div>;
+  return <div>пицца полная {(pizza.title, isLoading)}</div>;
 };
 
 export default FullPizza;

@@ -2,8 +2,9 @@ import { Link } from 'react-router-dom';
 import { PATHS } from '../../const/paths.ts';
 import { useDispatch, useSelector } from 'react-redux';
 import CartBlock from '../../components/CartBlock';
-import { cartSelector, clearPizzaCart } from '../../slices/cartSlice.ts';
-import CartEmty from '../../components/CartEmpty';
+import { clearPizzaCart } from '../../slices/cartSlice.ts';
+import CartEmpty from '../../components/CartEmpty';
+import { cartSelector } from '../../slices/selectors.ts';
 
 const Cart = () => {
   const { items, totalPrice } = useSelector(cartSelector);
@@ -18,7 +19,7 @@ const Cart = () => {
   };
 
   if (items.length === 0) {
-    return <CartEmty />;
+    return <CartEmpty />;
   }
 
   return (

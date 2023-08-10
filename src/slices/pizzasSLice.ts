@@ -1,15 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { IFetchPizza, InitStatePizza } from '../const/interfaces.ts';
 import { pizzaService } from '../service/pizzaService.ts';
-import { RootState } from '../store';
 
 const initialState: InitStatePizza = {
   items: [],
   loadingStatus: 'loading',
   totalCount: 0,
 };
-
-export const pizzaSelector = (state: RootState) => state.pizza;
 
 export const fetchPizzas = createAsyncThunk(
   'pizza/fetchPizza',

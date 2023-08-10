@@ -1,16 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { InitStateCart } from '../const/interfaces.ts';
 import calculateTotalPrice from '../helpers/calculateTotalPrice.ts';
-import { RootState } from '../store';
 
 const initialState: InitStateCart = {
   totalPrice: 0,
   items: [],
 };
-
-export const cartSelector = (state: RootState) => state.cart;
-export const cartSelectorById = (id: number) => (state: RootState) =>
-  state.cart.items.find((obj) => obj.id === id);
 
 export const cartSlice = createSlice({
   name: 'cart',

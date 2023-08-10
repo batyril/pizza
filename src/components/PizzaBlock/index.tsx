@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { ICart, IPizza } from '../../const/interfaces.ts';
 import { useDispatch, useSelector } from 'react-redux';
-import { addPizzaCart, cartSelectorById } from '../../slices/cartSlice.ts';
+import { addPizzaCart } from '../../slices/cartSlice.ts';
 import { Link } from 'react-router-dom';
+import { cartSelectorById } from '../../slices/selectors.ts';
 
 const typesName = ['тонкое', 'традиционное'];
 
@@ -20,7 +21,6 @@ export const PizzaBlock = ({
   const addPizzaCount = useSelector(cartSelectorById(id));
   const checkAddPizza = addPizzaCount ? <i>{addPizzaCount.count}</i> : null;
   const onClickAdd = () => {
-    console.log(typesName[activeType]);
     const items: ICart = {
       id,
       title,

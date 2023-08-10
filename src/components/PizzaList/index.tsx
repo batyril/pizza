@@ -1,46 +1,29 @@
 import { PizzaBlock } from '../PizzaBlock';
 import { Skeleton } from '../Skeleton';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { IPizza } from '../../const/interfaces.ts';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../store';
-import {
-  filterSelector,
-  setFilers,
-  setPage,
-} from '../../slices/filterSlice.ts';
-import qs from 'qs';
-import { useNavigate } from 'react-router-dom';
-import { sorts } from '../Sort';
-import {
-  setPizzas,
-  fetchPizzas,
-  pizzaSelector,
-} from '../../slices/pizzasSLice.ts';
+import { setPage } from '../../slices/filterSlice.ts';
+
+import { setPizzas, fetchPizzas } from '../../slices/pizzasSLice.ts';
 import ErrorRequest from '../ErrorRequest';
+import {
+  pizzaSelector,
+  selectActiveCategory,
+  selectActiveSort,
+  selectFilter,
+  selectPizzasItems,
+} from '../../slices/selectors.ts';
 
 export const PizzaList = () => {
-  const isMounted = useRef(false);
-  const isSearch = useRef(false);
-  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const { activeCategory, activeSort, currentPage, searchValue } =
-    useSelector(filterSelector);
-  const { items, loadingStatus, totalCount } = useSelector(pizzaSelector);
 
-  useEffect(() => {
-    const urlParams = window.location.search;
-    if (urlParams) {
-      const indexQuestion = 1;
-      const params = qs.parse(urlParams.substring(indexQuestion));
-      const sort = sorts.find(
-        (item) =>
-          item.sort === params.sortProperty && item.order === params.order,
-      );
-      dispatch(setFilers({ ...params, sort }));
-      isSearch.current = true;
-    }
-  }, []);
+  const { currentPage, searchValue } = useSelector(selectFilter);
+  const activeCategory = useSelector(selectActiveCategory);
+  const activeSort = useSelector(selectActiveSort);
+  const { loadingStatus, totalCount } = useSelector(pizzaSelector);
+  const items = useSelector(selectPizzasItems);
 
   const fetchData = async (page: number) => {
     dispatch(fetchPizzas({ activeSort, activeCategory, searchValue, page }));
@@ -52,19 +35,6 @@ export const PizzaList = () => {
 
   useEffect(() => {
     fetchData(currentPage);
-  }, [currentPage, activeSort.name, activeCategory, searchValue]);
-
-  useEffect(() => {
-    if (isMounted.current) {
-      const queryString = qs.stringify({
-        sortProperty: activeSort.sort,
-        categoryId: activeCategory,
-        currentPage: currentPage,
-        order: activeSort.order,
-      });
-      navigate(`?${queryString}`);
-    }
-    isMounted.current = true;
   }, [currentPage, activeSort.name, activeCategory, searchValue]);
 
   const skeletons = [...new Array(4)].map((_, index) => (
