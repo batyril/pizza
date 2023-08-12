@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store.ts';
 import { useEffect, useRef } from 'react';
 
-export const Header = () => {
+const Header = () => {
   const totalPrice = useSelector((state: RootState) => state.cart.totalPrice);
   const items = useSelector((state: RootState) => state.cart.items);
   const location = useLocation();
@@ -114,3 +114,5 @@ export const Header = () => {
     </div>
   );
 };
+
+export default Header;

@@ -7,14 +7,7 @@ import { addPizzaCart } from '../../redux/cart/slice.ts';
 
 const typesName = ['тонкое', 'традиционное'];
 
-export const PizzaBlock = ({
-  title,
-  imageUrl,
-  types,
-  sizes,
-  price,
-  id,
-}: IPizza) => {
+const PizzaBlock = ({ title, imageUrl, types, sizes, price, id }: IPizza) => {
   const [activeSize, setActiveSize] = useState(sizes[0]);
   const [activeType, setActiveType] = useState(0);
   const dispatch = useDispatch();
@@ -95,3 +88,5 @@ export const PizzaBlock = ({
     </div>
   );
 };
+
+export default PizzaBlock;

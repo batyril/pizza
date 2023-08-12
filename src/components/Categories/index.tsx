@@ -12,7 +12,7 @@ const categories = [
   { name: 'Закрытые', id: 5 },
 ];
 
-export const Categories = () => {
+const Categories = () => {
   const activeCategory = useSelector(selectActiveCategory);
   const dispatch = useDispatch();
   const onClickCategory = (index: number) => {
@@ -35,3 +35,5 @@ export const Categories = () => {
     </div>
   );
 };
+
+export default Categories;

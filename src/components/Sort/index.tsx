@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectActiveSort } from '../../redux/filter/selectors.ts';
 import { setSort } from '../../redux/filter/slice.ts';
 
-export const sorts: SortType[] = [
+const sorts: SortType[] = [
   {
     name: 'популярности ↓',
     sort: 'rating',
@@ -98,3 +98,5 @@ export const Sort = () => {
     </div>
   );
 };
+
+export default Sort;

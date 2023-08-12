@@ -1,5 +1,3 @@
-import { PizzaBlock } from '../PizzaBlock';
-import { Skeleton } from '../Skeleton';
 import { useEffect } from 'react';
 import { IPizza } from '../../const/interfaces.ts';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,8 +15,9 @@ import {
 import { fetchPizzas } from '../../redux/pizza/AsyncAction.ts';
 import { setPizzas } from '../../redux/pizza/slice.ts';
 import { setPage } from '../../redux/filter/slice.ts';
+import { PizzaBlock, Skeleton } from '../index.ts';
 
-export const PizzaList = () => {
+const PizzaList = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const { currentPage, searchValue } = useSelector(selectFilter);
@@ -67,3 +66,5 @@ export const PizzaList = () => {
     </>
   );
 };
+
+export default PizzaList;

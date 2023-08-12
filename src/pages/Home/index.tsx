@@ -1,9 +1,8 @@
-import { Categories } from '../../components/Categories';
 import { Sort } from '../../components/Sort';
-import { PizzaList } from '../../components/PizzaList';
 import useScrollToTop from '../../hooks/useScrollToTop.ts';
+import { Categories, PizzaList } from '../../components';
 
-export const Home = () => {
+const Home = () => {
   useScrollToTop();
   return (
     <div className='container'>
@@ -15,3 +14,5 @@ export const Home = () => {
     </div>
   );
 };
+
+export default Home;
