@@ -3,15 +3,25 @@ import { PATHS } from '../../const/paths.ts';
 import Search from '../Search';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store.ts';
+import { useEffect, useRef } from 'react';
 
 export const Header = () => {
   const totalPrice = useSelector((state: RootState) => state.cart.totalPrice);
   const items = useSelector((state: RootState) => state.cart.items);
   const location = useLocation();
-
+  const isMounted = useRef(false);
   const totalCount = items.reduce((sum, item) => {
     return sum + item.count;
   }, 0);
+
+  useEffect(() => {
+    if (isMounted.current) {
+      const json = JSON.stringify(items);
+      localStorage.setItem('cart', json);
+    }
+    isMounted.current = true;
+  }, [items]);
+
   return (
     <div className='header'>
       <div className='container'>

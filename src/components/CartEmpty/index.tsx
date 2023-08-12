@@ -12,7 +12,7 @@ const CartEmpty = () => {
         Для того, чтобы заказать пиццу, перейди на главную страницу.
       </p>
       <img src={cartEmptyIcon} alt='Empty cart' />
-      <Link to={PATHS.HOME} className='button button--black'>
+      <Link to={PATHS.BASE} className='button button--black'>
         <span>Вернуться назад</span>
       </Link>
     </div>

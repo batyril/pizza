@@ -73,7 +73,9 @@ export const Sort = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setOpen(!open)}>{activeSort.name}</span>
+        <span className='sort__name' onClick={() => setOpen(!open)}>
+          {activeSort.name}
+        </span>
       </div>
       {open && (
         <div className='sort__popup'>
