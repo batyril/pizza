@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { selectActiveCategory } from '../../redux/filter/selectors.ts';
 import { setCategory } from '../../redux/filter/slice.ts';
+import { FC } from 'react';
+import styles from './categories.module.scss';
 
 const categories = [
   { name: 'Все', id: 6 },
@@ -12,7 +14,7 @@ const categories = [
   { name: 'Закрытые', id: 5 },
 ];
 
-const Categories = () => {
+const Categories: FC = () => {
   const activeCategory = useSelector(selectActiveCategory);
   const dispatch = useDispatch();
   const onClickCategory = (index: number) => {
@@ -20,12 +22,12 @@ const Categories = () => {
   };
 
   return (
-    <div className='categories'>
+    <div className={styles.categories}>
       <ul>
         {categories.map((category) => (
           <li
             onClick={() => onClickCategory(category.id)}
-            className={activeCategory === category.id ? 'active' : ''}
+            className={activeCategory === category.id ? styles.active : ''}
             key={category.id}
           >
             {category.name}

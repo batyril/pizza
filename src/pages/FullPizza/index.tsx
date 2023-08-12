@@ -1,10 +1,10 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { IPizza } from '../../const/interfaces.ts';
 import { pizzaService } from '../../service/pizzaService.ts';
 import { PATHS } from '../../const/paths.ts';
 
-const FullPizza = () => {
+const FullPizza: FC = () => {
   const { getPizzaById } = pizzaService();
   const pizzaId = useParams();
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ const FullPizza = () => {
     return <div>Загрузка...</div>;
   }
 
-  return <div>пицца полная {(pizza.title, isLoading)}</div>;
+  return <div>пицца полная {pizza.title}</div>;
 };
 
 export default FullPizza;

@@ -1,6 +1,7 @@
-import NotFound from '../../components/NotFound';
+import { NotFound } from '../../components';
+import { FC } from 'react';
 
-const Error = () => {
+const Error: FC = () => {
   return <NotFound />;
 };
 

@@ -1,0 +1,34 @@
+@import '../scss/variables';
+
+.wrapper {
+  width: calc(100vw - 100px);
+  height: 100%;
+  background-color: #fff;
+  margin: 50px auto;
+  border-radius: 10px;
+  max-width: 1400px;
+}
+
+@media (max-width: 520px) {
+  .wrapper{
+    margin: 0 auto;
+    width: 100%;
+    border-radius: 0;
+  }
+}
+
+.content {
+  padding: 20px 0;
+}
+
+@media (max-width: 700px) {
+  .content {
+    padding: 20px 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .content {
+    padding: 10px 0;
+  }
+}

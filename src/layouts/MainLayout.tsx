@@ -1,10 +1,12 @@
-import { Header } from '../components/Header';
 import { Outlet } from 'react-router-dom';
-const MainLayout = () => {
+import { Header } from '../components';
+import { FC } from 'react';
+import styles from './MainLayout.module.scss';
+const MainLayout: FC = () => {
   return (
-    <div className='wrapper'>
+    <div className={styles.wrapper}>
       <Header />
-      <div className='content'>
+      <div className={styles.content}>
         <Outlet />
       </div>
     </div>

@@ -1,10 +1,10 @@
 import cartEmptyIcon from '../../assets/img/empty-cart.png';
-import { Link } from 'react-router-dom';
-import { PATHS } from '../../const/paths.ts';
-
-const CartEmpty = () => {
+import { FC } from 'react';
+import { BackButton } from '../index.ts';
+import styles from './cartEmpty.module.scss';
+const CartEmpty: FC = () => {
   return (
-    <div className='cart cart--empty'>
+    <div className={styles['cart cart--empty']}>
       <h2>Корзина пустая 😕</h2>
       <p>
         Вероятней всего, вы не заказывали ещё пиццу.
@@ -12,9 +12,7 @@ const CartEmpty = () => {
         Для того, чтобы заказать пиццу, перейди на главную страницу.
       </p>
       <img src={cartEmptyIcon} alt='Empty cart' />
-      <Link to={PATHS.BASE} className='button button--black'>
-        <span>Вернуться назад</span>
-      </Link>
+      <BackButton />
     </div>
   );
 };

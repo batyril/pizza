@@ -1,7 +1,6 @@
-@import '../variables';
+@import '../../scss/variables';
 
-
-.pizza-block {
+.pizzaBlock {
   width: 280px;
   text-align: center;
 
@@ -36,7 +35,6 @@
         cursor: pointer;
         font-weight: 600;
         font-size: 14px;
-        @include noselect();
         &.active {
           background: #ffffff;
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
