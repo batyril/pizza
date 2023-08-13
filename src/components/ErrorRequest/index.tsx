@@ -1,6 +1,7 @@
 import styles from './ErrorRequest.module.scss';
+import { FC } from 'react';
 
-const ErrorRequest = () => {
+const ErrorRequest: FC = () => {
   return (
     <div className={styles['error-container']}>
       <div className={styles['error-message']}>

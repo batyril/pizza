@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { SortType } from '../../const/interfaces.ts';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectActiveSort } from '../../redux/filter/selectors.ts';
 import { setSort } from '../../redux/filter/slice.ts';
-
-export const sorts: SortType[] = [
+import styles from './sort.module.scss';
+const sorts: SortType[] = [
   {
     name: 'популярности ↓',
     sort: 'rating',
@@ -39,7 +39,7 @@ export const sorts: SortType[] = [
   },
 ];
 
-export const Sort = () => {
+export const Sort: FC = () => {
   const activeSort = useSelector(selectActiveSort);
   const sortRef = useRef<HTMLDivElement | null>(null);
   const dispatch = useDispatch();
@@ -58,8 +58,8 @@ export const Sort = () => {
   }, []);
 
   return (
-    <div ref={sortRef} className='sort'>
-      <div className='sort__label'>
+    <div ref={sortRef} className={styles.sort}>
+      <div className={styles.sort__label}>
         <svg
           width='10'
           height='6'
@@ -73,10 +73,12 @@ export const Sort = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setOpen(!open)}>{activeSort.name}</span>
+        <span className={styles.sort__name} onClick={() => setOpen(!open)}>
+          {activeSort.name}
+        </span>
       </div>
       {open && (
-        <div className='sort__popup'>
+        <div className={styles.sort__popup}>
           <ul>
             {sorts.map((sort, index) => (
               <li
@@ -96,3 +98,5 @@ export const Sort = () => {
     </div>
   );
 };
+
+export default Sort;

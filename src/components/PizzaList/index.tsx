@@ -1,10 +1,9 @@
-import { PizzaBlock } from '../PizzaBlock';
-import { Skeleton } from '../Skeleton';
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { IPizza } from '../../const/interfaces.ts';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../redux/store.ts';
-import ErrorRequest from '../ErrorRequest';
+import styles from './PizzaList.module.scss';
+
 import {
   selectActiveCategory,
   selectActiveSort,
@@ -17,8 +16,10 @@ import {
 import { fetchPizzas } from '../../redux/pizza/AsyncAction.ts';
 import { setPizzas } from '../../redux/pizza/slice.ts';
 import { setPage } from '../../redux/filter/slice.ts';
+import { ErrorRequest, PizzaBlock, Skeleton } from '../index.ts';
+import NotFound from '../NotFound';
 
-export const PizzaList = () => {
+const PizzaList: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const { currentPage, searchValue } = useSelector(selectFilter);
@@ -47,23 +48,27 @@ export const PizzaList = () => {
   ));
   return (
     <>
-      <h2 className='content__title'>Все пиццы</h2>
+      <h2 className={styles.content__title}>Все пиццы</h2>
       {loadingStatus === 'error' ? (
         <ErrorRequest />
       ) : (
-        <div className='content__items'>
+        <div className={styles.content__items}>
           {loadingStatus === 'loading' ? skeletons : renderPizza}
         </div>
       )}
 
       {items.length === totalCount ? null : (
         <button
-          className='content__button'
+          className={styles.content__button}
           onClick={() => dispatch(setPage(currentPage + 1))}
         >
           Загрузить еще
         </button>
       )}
+
+      {items.length === 0 ? <NotFound /> : null}
     </>
   );
 };
+
+export default PizzaList;

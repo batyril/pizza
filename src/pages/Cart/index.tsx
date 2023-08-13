@@ -1,12 +1,12 @@
-import { Link } from 'react-router-dom';
-import { PATHS } from '../../const/paths.ts';
 import { useDispatch, useSelector } from 'react-redux';
-import CartBlock from '../../components/CartBlock';
-import CartEmpty from '../../components/CartEmpty';
 import { cartSelector } from '../../redux/cart/selectors.ts';
 import { clearPizzaCart } from '../../redux/cart/slice.ts';
+import { BackButtonCart, CartBlock, CartEmpty } from '../../components';
+import { FC } from 'react';
+import styles from './Cart.module.scss';
+import button from '../../components/buttons/Buttons.module.scss';
 
-const Cart = () => {
+const Cart: FC = () => {
   const { items, totalPrice } = useSelector(cartSelector);
 
   const totalCount = items.reduce((sum, item) => {
@@ -24,9 +24,9 @@ const Cart = () => {
 
   return (
     <div className='container container--cart'>
-      <div className='cart'>
-        <div className='cart__top'>
-          <h2 className='content__title'>
+      <div className={styles.cart}>
+        <div className={styles.cart__top}>
+          <h2 className={styles.content__title}>
             <svg
               width='18'
               height='18'
@@ -58,7 +58,7 @@ const Cart = () => {
             </svg>
             Корзина
           </h2>
-          <div onClick={onClearCarts} className='cart__clear'>
+          <div onClick={onClearCarts} className={styles.cart__clear}>
             <svg
               width='20'
               height='20'
@@ -99,13 +99,13 @@ const Cart = () => {
             <span>Очистить корзину</span>
           </div>
         </div>
-        <div className='content__items'>
+        <div className={styles.content__items}>
           {items.map((obj) => (
             <CartBlock key={obj.id} {...obj} />
           ))}
         </div>
-        <div className='cart__bottom'>
-          <div className='cart__bottom-details'>
+        <div className={styles.cart__bottom}>
+          <div className={styles['cart__bottom-details']}>
             <span>
               {' '}
               Всего пицц: <b>{totalCount} шт.</b>{' '}
@@ -115,30 +115,9 @@ const Cart = () => {
               Сумма заказа: <b>{totalPrice} ₽</b>{' '}
             </span>
           </div>
-          <div className='cart__bottom-buttons'>
-            <Link
-              to={PATHS.HOME}
-              className='button button--outline button--add go-back-btn'
-            >
-              <svg
-                width='8'
-                height='14'
-                viewBox='0 0 8 14'
-                fill='none'
-                xmlns='http://www.w3.org/2000/svg'
-              >
-                <path
-                  d='M7 13L1 6.93015L6.86175 1'
-                  stroke='#D3D3D3'
-                  strokeWidth='1.5'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                />
-              </svg>
-
-              <span>Вернуться назад</span>
-            </Link>
-            <div className='button pay-btn'>
+          <div className={styles['cart__bottom-buttons']}>
+            <BackButtonCart />
+            <div className={`${button.button} ${styles['pay-btn']}`}>
               <span>Оплатить сейчас</span>
             </div>
           </div>

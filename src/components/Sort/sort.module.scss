@@ -1,8 +1,9 @@
-@import '../variables';
+@import '../../scss/variables';
 
 .sort {
   position: relative;
   &__label {
+    white-space: nowrap;
     display: flex;
     align-items: center;
 
@@ -19,6 +20,10 @@
       border-bottom: 1px dashed $orange;
       cursor: pointer;
     }
+  }
+
+  &__name{
+    white-space: nowrap;
   }
 
   &__popup {

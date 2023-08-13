@@ -1,5 +1,8 @@
-import NotFound from '../../components/NotFound';
+import { NotFound } from '../../components';
+import { FC } from 'react';
 
-export const Error = () => {
+const Error: FC = () => {
   return <NotFound />;
 };
+
+export default Error;

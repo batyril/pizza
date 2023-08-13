@@ -1,5 +1,4 @@
-@import '../variables';
-
+@import '../../scss/variables';
 
 .button {
   display: inline-block;
@@ -11,7 +10,6 @@
   cursor: pointer;
   transition: background-color $duration ease-in-out, border-color $duration ease-in-out;
   border: 1px solid transparent;
-  @include noselect();
 
   &,
   span {
@@ -44,6 +42,7 @@
     padding: 0;
     border-width: 2px;
   }
+
 
   &--black {
     background-color: $black;
@@ -147,3 +146,60 @@
     }
   }
 }
+
+
+.buttonMinus {
+  svg {
+    path:first-of-type {
+      display: none;
+    }
+  }
+  &:disabled{
+    border-color: #b6b6b6;
+    &:active {
+      transform: none;
+    }
+    &:hover{
+      background-color: transparent;
+      svg path{
+        fill: #b6b6b6;
+      }
+    }
+    svg path{
+      fill: #b6b6b6;
+    }
+  }
+}
+
+
+.go-back-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 210px;
+
+  border-color: darken($color: $gray-line, $amount: 10);
+
+  span {
+    color: darken($color: $gray-line, $amount: 20);
+    font-weight: 600;
+  }
+
+  &:hover {
+    background-color: darken($color: $gray-line, $amount: 90);
+    border-color: darken($color: $gray-line, $amount: 90);
+
+    span {
+      color: $gray-line;
+    }
+  }
+
+  svg {
+    margin-right: 12px;
+    path {
+      fill: transparent;
+      stroke-width: 2;
+    }
+  }
+}
+

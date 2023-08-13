@@ -1,13 +1,12 @@
-import { Categories } from '../../components/Categories';
-import { Sort } from '../../components/Sort';
-import { PizzaList } from '../../components/PizzaList';
 import useScrollToTop from '../../hooks/useScrollToTop.ts';
-
-export const Home = () => {
+import { Categories, PizzaList, Sort } from '../../components';
+import { FC } from 'react';
+import styles from './Home.module.scss';
+const Home: FC = () => {
   useScrollToTop();
   return (
-    <div className='container'>
-      <div className='content__top'>
+    <div className={styles.container}>
+      <div className={styles.content__top}>
         <Categories />
         <Sort />
       </div>
@@ -15,3 +14,5 @@ export const Home = () => {
     </div>
   );
 };
+
+export default Home;
