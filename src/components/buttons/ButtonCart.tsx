@@ -14,8 +14,8 @@ const ButtonCart: FC<IButtonCart> = ({ totalPrice, totalCount }) => {
       to={PATHS.CART}
       className={`${styles.button} ${styles['button--cart']}`}
     >
-      <span>{totalPrice} ₽</span>
-      <div className='button__delimiter'></div>
+      <span>{totalPrice} ₽ </span>
+      <div className={styles.button__delimiter}> </div>
       <svg
         width='18'
         height='18'
@@ -45,7 +45,7 @@ const ButtonCart: FC<IButtonCart> = ({ totalPrice, totalCount }) => {
           strokeLinejoin='round'
         />
       </svg>
-      <span>{totalCount}</span>
+      <span> {totalCount}</span>
     </Link>
   );
 };

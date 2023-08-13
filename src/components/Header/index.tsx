@@ -36,9 +36,14 @@ const Header: FC = () => {
           </div>
         </Link>
 
-        {location.pathname !== '/cart' ? (
+        {location.pathname === PATHS.BASE ? (
           <>
             <Search />
+          </>
+        ) : null}
+
+        {location.pathname !== PATHS.CART ? (
+          <>
             <div className={styles.header__cart}>
               <ButtonCart totalPrice={totalPrice} totalCount={totalCount} />
             </div>

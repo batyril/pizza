@@ -13,11 +13,9 @@ import RemoveButton from '../buttons/RemoveButton.tsx';
 const CartBlock: FC<ICart> = ({
   id,
   count,
-  size,
   title,
   price,
   imageUrl,
-  typesName,
 }) => {
   const dispatch = useDispatch();
   const onClickPlus = () => {
@@ -40,9 +38,9 @@ const CartBlock: FC<ICart> = ({
       </div>
       <div className={styles['cart__item-info']}>
         <h3>{title}</h3>
-        <p>
+        {/*       <p>
           {typesName} тесто, {size} см.
-        </p>
+        </p>*/}
       </div>
 
       <div className={styles['cart__item-count']}>

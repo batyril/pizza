@@ -119,3 +119,18 @@
     }
   }
 }
+
+@media (max-width: 700px) {
+  .cart__item{
+    justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: 15px;
+    &-count{
+      order: 1
+    }
+    &-remove{
+      order:2
+    }
+
+  }
+}

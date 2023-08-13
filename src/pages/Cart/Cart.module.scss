@@ -65,21 +65,6 @@
 
 
 
-  @media (max-width: 700px) {
-    &__item{
-      justify-content: space-between;
-      flex-wrap: wrap;
-      row-gap: 15px;
-      &-count{
-        order: 1
-      }
-      &-remove{
-        order:2
-      }
-
-    }
-  }
-
   &__bottom {
     margin: 50px 0;
 

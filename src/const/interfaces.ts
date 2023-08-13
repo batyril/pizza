@@ -7,6 +7,7 @@ export interface IPizza {
   price: number;
   category: number;
   rating: number;
+  description: string;
 }
 
 export interface IFetchPizza {
@@ -28,10 +29,15 @@ export interface InitStateFilter {
   searchValue: string;
 }
 
+export interface InitStatePizzaPage {
+  items: IPizza | null;
+  loadingStatus: 'idle' | 'loading' | 'error';
+}
+
 export interface InitStatePizza {
   items: IPizza[];
   loadingStatus: 'idle' | 'loading' | 'error';
-  totalCount: number;
+  totalCount?: number;
 }
 
 export interface ICart {
@@ -42,6 +48,7 @@ export interface ICart {
   imageUrl: string;
   size: number;
   typesName: string;
+  description: string;
 }
 
 export interface SortType {
