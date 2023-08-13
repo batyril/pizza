@@ -16,6 +16,7 @@ const PizzaBlock: FC<IPizza> = ({
   sizes,
   price,
   id,
+  description,
 }) => {
   const [activeSize, setActiveSize] = useState(sizes[0]);
   const [activeType, setActiveType] = useState(0);
@@ -31,6 +32,7 @@ const PizzaBlock: FC<IPizza> = ({
       size: activeSize,
       typesName: typesName[activeType],
       count: 0,
+      description,
     };
     dispatch(addPizzaCart(items));
   };
