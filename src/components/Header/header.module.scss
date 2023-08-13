@@ -53,12 +53,15 @@
     &__cart{
       display: none;
     }
+    &__cart--pizzaPage{
+      display: flex;
+    }
   }
 }
 
 @media (max-width: 700px) {
   .container {
     flex-direction: column;
-    gap: 35px;
+    gap: 15px;
   }
 }

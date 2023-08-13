@@ -42,7 +42,7 @@ const Header: FC = () => {
           </>
         ) : null}
 
-        {location.pathname !== PATHS.CART ? (
+        {location.pathname === PATHS.BASE ? (
           <>
             <div className={styles.header__cart}>
               <ButtonCart totalPrice={totalPrice} totalCount={totalCount} />
@@ -50,6 +50,15 @@ const Header: FC = () => {
             <div className={styles['header__cart--floating']}>
               <ButtonCartMini totalCount={totalCount} />
             </div>{' '}
+          </>
+        ) : null}
+        {location.pathname.includes('pizza') ? (
+          <>
+            <div
+              className={`${styles.header__cart} ${styles['header__cart--pizzaPage']}`}
+            >
+              <ButtonCart totalPrice={totalPrice} totalCount={totalCount} />
+            </div>
           </>
         ) : null}
       </div>

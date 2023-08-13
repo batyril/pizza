@@ -10,13 +10,7 @@ import styles from './cartBlock.module.scss';
 import { MinusButton, PlusButton } from '../index.ts';
 import RemoveButton from '../buttons/RemoveButton.tsx';
 
-const CartBlock: FC<ICart> = ({
-  id,
-  count,
-  title,
-  price,
-  imageUrl,
-}) => {
+const CartBlock: FC<ICart> = ({ id, count, title, price, imageUrl }) => {
   const dispatch = useDispatch();
   const onClickPlus = () => {
     dispatch(plusCount(id));

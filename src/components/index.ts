@@ -17,3 +17,4 @@ export { default as ButtonCart } from './buttons/ButtonCart.tsx';
 export { default as MinusButton } from './buttons/MinusButton.tsx';
 export { default as PlusButton } from './buttons/PlusButton.tsx';
 export { default as RemoveButton } from './buttons/RemoveButton.tsx';
+export { default as Spinner } from './Spinner';

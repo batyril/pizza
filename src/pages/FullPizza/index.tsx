@@ -9,7 +9,8 @@ import { AppDispatch, RootState } from '../../redux/store.ts';
 import { addPizzaCart } from '../../redux/cart/slice.ts';
 import styles from './FullPizza.module.scss';
 import { fetchPizzaId } from '../../redux/pizzaPage/AsyncAction.ts';
-import { ErrorRequest } from '../../components';
+import { BackButtonCart, ErrorRequest, Spinner } from '../../components';
+import { setSearchValue } from '../../redux/filter/slice.ts';
 
 const typesName = ['тонкое', 'традиционное'];
 
@@ -32,6 +33,10 @@ const FullPizza: FC = () => {
   const [activeType, setActiveType] = useState(0);
   const addPizzaCount = useSelector(cartSelectorById(Number(id)));
   const checkAddPizza = addPizzaCount ? <i>{addPizzaCount.count}</i> : null;
+
+  useEffect(() => {
+    dispatch(setSearchValue(''));
+  }, []);
 
   const onClickAdd = () => {
     if (items) {
@@ -56,7 +61,7 @@ const FullPizza: FC = () => {
   return (
     <>
       {loadingStatus === 'loading' ? (
-        <div>Загрузка...</div>
+        <Spinner />
       ) : (
         items && (
           <div className={styles.fullPizza}>
@@ -102,10 +107,13 @@ const FullPizza: FC = () => {
                   ))}
                 </ul>
               </div>
-              <AddCartButton
-                onClickAdd={onClickAdd}
-                checkAddPizza={checkAddPizza}
-              />
+              <div className={styles.fullPizza__buttons}>
+                <BackButtonCart />
+                <AddCartButton
+                  onClickAdd={onClickAdd}
+                  checkAddPizza={checkAddPizza}
+                />
+              </div>
             </div>
           </div>
         )

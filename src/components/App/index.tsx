@@ -4,6 +4,8 @@ import { PATHS } from '../../const/paths.ts';
 import MainLayout from '../../layouts/MainLayout.tsx';
 import { lazy, Suspense } from 'react';
 import { Home, Error } from '../../pages';
+import { Spinner } from '../index.ts';
+
 const Cart = lazy(() => import('../../pages/Cart'));
 const FullPizza = lazy(() => import('../../pages/FullPizza'));
 function App() {
@@ -14,7 +16,7 @@ function App() {
         <Route
           path={PATHS.CART}
           element={
-            <Suspense fallback='loading...'>
+            <Suspense fallback={<Spinner />}>
               <Cart />
             </Suspense>
           }
@@ -23,7 +25,7 @@ function App() {
         <Route
           path={PATHS.PIZZA}
           element={
-            <Suspense fallback='loading...'>
+            <Suspense fallback={<Spinner />}>
               <FullPizza />{' '}
             </Suspense>
           }

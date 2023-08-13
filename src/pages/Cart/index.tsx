@@ -2,9 +2,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { cartSelector } from '../../redux/cart/selectors.ts';
 import { clearPizzaCart } from '../../redux/cart/slice.ts';
 import { BackButtonCart, CartBlock, CartEmpty } from '../../components';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import styles from './Cart.module.scss';
 import button from '../../components/buttons/Buttons.module.scss';
+import { setSearchValue } from '../../redux/filter/slice.ts';
 
 const Cart: FC = () => {
   const { items, totalPrice } = useSelector(cartSelector);
@@ -17,6 +18,10 @@ const Cart: FC = () => {
     const messageText = 'Вы действительно хотите очистить список ?';
     if (window.confirm(messageText)) dispatch(clearPizzaCart());
   };
+
+  useEffect(() => {
+    dispatch(setSearchValue(''));
+  }, []);
 
   if (items.length === 0) {
     return <CartEmpty />;

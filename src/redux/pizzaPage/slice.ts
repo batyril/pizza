@@ -22,7 +22,6 @@ export const pizzaPageSlice = createSlice({
       })
       .addCase(fetchPizzaId.fulfilled, (state, action) => {
         state.loadingStatus = 'idle';
-        console.log(action.payload.data);
         state.items = action.payload;
       })
       .addCase(fetchPizzaId.rejected, (state) => {
