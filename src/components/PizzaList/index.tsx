@@ -21,7 +21,6 @@ import NotFound from '../NotFound';
 
 const PizzaList: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-
   const { currentPage, searchValue } = useSelector(selectFilter);
   const activeCategory = useSelector(selectActiveCategory);
   const activeSort = useSelector(selectActiveSort);

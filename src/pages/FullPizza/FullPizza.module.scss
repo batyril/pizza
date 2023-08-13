@@ -4,7 +4,8 @@
   justify-content: center;
   gap: 50px;
   &__image{
-    width: 60%;
+    width: 50%;
+    object-fit: contain;
   }
   &__title{
     font-size: 35px;
@@ -16,6 +17,11 @@
     gap: 35px;
     display: flex;
     flex-direction: column;
+  }
+  &__buttons{
+    display: flex;
+    gap: 15px;
+    justify-content: space-between;
   }
 }
 
